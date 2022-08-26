@@ -1,18 +1,24 @@
 from pytube import YouTube
 from tqdm import tqdm
+
 import time
-from sys import argv
+import sys
 
 def compet():
 
     print("\nDownloading Complete")
 
-def progress(stream, chunk, bytes_remaining):
+# def progress(stream, chunk, bytes_remaining):
    
-    bytes_downloaded = stream.filesize - bytes_remaining
-    for bytes_downloaded in tqdm(range(stream.filesize)):
-        continue
-
+#     bytes_downloaded = stream.filesize - bytes_remaining
+def progress_function(chunk, file_handle, bytes_remaining):    
+    filesizee = video[Reso].filesize
+    current = ((filesizee - bytes_remaining)/filesizee)
+    percent = ('{0:.1f}').format(current*100)
+    progress = int(50*current)
+    status = '█' * progress + '-' * (50 - progress)
+    sys.stdout.write(' ↳ |{bar}| {percent}%\r'.format(bar=status, percent=percent))
+    sys.stdout.flush()
 
 
 link = input('Enter the Link \n')
@@ -31,9 +37,12 @@ Reso = int(input('Enter the number of Resolution : '))
 size = str(video[Reso].filesize/(1024*1024))
 print("\nFilesize : "+ size + "MB")
 
-yt.register_on_progress_callback(progress)
+# for bytes_downloaded in tqdm(range(video[Reso].filesize)):
+#     yt.register_on_progress_callback(progress)
+yt.register_on_progress_callback(progress_function)
 
-video[Reso].download('D:\yttrial')
+
+video[Reso].download('D:\Coding\Programming Video\DSA')
 
 video[Reso].on_complete(compet())
 
